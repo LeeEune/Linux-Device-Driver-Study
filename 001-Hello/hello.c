@@ -1,8 +1,8 @@
 /**
  * @file    hello.c
- * @author  Akshat Sinha
- * @date    10 Sept 2016
- * @version 0.1
+ * @author  Akshat Sinha & Eunhye Lee
+ * @date    15 Dec 2022
+ * @version 0.2
  * @brief  An introductory "Hello World!" loadable kernel
  *  module (LKM) that can display a message in the /var/log/kern.log
  *  file when the module is loaded and removed. The module can accept
@@ -16,22 +16,36 @@
 ///< The license type -- this affects runtime behavior
 MODULE_LICENSE("GPL"); 
 ///< The author -- visible when you use modinfo
-MODULE_AUTHOR("Akshat Sinha");
+MODULE_AUTHOR("Eunhye Lee");
 ///< The description -- see modinfo
 MODULE_DESCRIPTION("A simple Hello world LKM!");
 ///< The version of the module
-MODULE_VERSION("0.1");
+MODULE_VERSION("0.2");
+/*
+sudo insmod hello.ko
+sudo dmesg 
+sudo rmmod hello.ko
+*/
 
 static int __init hello_start(void)
 {
     printk(KERN_ALERT "Loading hello module...\n");
     printk(KERN_INFO "Hello world\n");
+    pr_alert("pr_alert\n");
+    pr_crit("pr_crit\n");
+    pr_err("pr_err\n");
+    pr_warn("pr_warning\n");
+    pr_notice("pr_notice\n");
+    pr_info("pr_notice\n");
+    pr_debug("pr_debug\n");
+    printk(KERN_DEBUG "debug\n");
     return 0;
 }
 
 static void __exit hello_end(void)
 {
     printk(KERN_INFO "Goodbye Ms.\n");
+    printk(KERN_DEBUG "debug\n");
 }
 
 module_init(hello_start);
